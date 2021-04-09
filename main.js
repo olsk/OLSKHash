@@ -1,3 +1,15 @@
+const uPromise = function (inputData) {
+	if (inputData instanceof Promise) {
+		return inputData;
+	}
+
+	return {
+		then (res) {
+			return res(inputData);
+		},
+	};
+};
+
 const mod = {
 
 	OLSKHashString (inputData) {
@@ -31,9 +43,9 @@ const mod = {
 			throw new Error('OLSKErrorInputNotValid');
 		}
 
-		params.OLSKHashDispatchInitialize(mod.OLSKHashObject((debug.window || window).location.hash));
-
-		return (debug.window || window).addEventListener('hashchange', params.OLSKHashDispatchChange, false);
+		return uPromise(params.OLSKHashDispatchInitialize(mod.OLSKHashObject((debug.window || window).location.hash))).then(function () {
+			return (debug.window || window).addEventListener('hashchange', params.OLSKHashDispatchChange, false);
+		});
 	},
 
 };
