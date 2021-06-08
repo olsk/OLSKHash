@@ -34,7 +34,7 @@ describe('OLSKHashObject', function test_OLSKHashObject() {
 		}, /OLSKErrorInputNotValid/);
 	});
 
-	it('returns string', function () {
+	it('returns object', function () {
 		deepEqual(mod.OLSKHashObject(''), {});
 	});
 
